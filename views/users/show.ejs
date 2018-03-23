@@ -1,0 +1,26 @@
+<% include ../partials/header %>
+
+<div class="row">
+    <div class="col-md-4">
+        <h1><%=user.firstName + " " + user.lastName%></h1>
+        <div class="thumbnail">
+        <img src="<%=user.avatar%>" alt="user profile image">
+        </div>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut quibusdam ducimus doloribus minus, 
+        ullam illo facere accusamus saepe minima voluptatibus. Adipisci recusandae ipsam, unde commodi ab quo voluptate nam est?
+        
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ipsam, 
+        velit quo illum suscipit aperiam, nisi optio accusantium sed pariatur non rerum nemo 
+        vero quibusdam a commodi odit laboriosam nihil.
+    </div>
+    <div class="col-md-8">
+        <h3><%= user.username %>'s Highlights: </h3>
+        <ul>
+        <% Highlights.forEach(function(Highlight) { %>
+            <li><a href="/highlights/<%=Highlight.id %>"><%= Highlight.name %></a></li>
+        <% }) %>
+        </ul>
+    </div>
+</div>
+
+<% include ../partials/footer %>

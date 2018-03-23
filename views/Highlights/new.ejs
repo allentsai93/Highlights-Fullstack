@@ -1,0 +1,33 @@
+<% include ../partials/header %>
+        <div class="row">        
+            <div class="forms">
+            
+                <h1 class="forms-title">Highlight Creation</h1>
+    
+                <form action="/highlights" method="POST" enctype="multipart/form-data">
+                    
+                <div class="form-group">
+                    <label for="name">Name :</label>
+                    <input class="form-control" type="text" name="Highlight[name]" id="name" placeholder="Yosemite" required>
+                </div>
+                    
+                <div class="form-group">
+                    <label for="image">Image :</label>
+                    <input class="form-control" type="file" id="image" name="image" accept="image/*">
+                </div>
+                    
+                <div class="form-group">
+                    <label for="description">Description :</label>
+                    <textarea class="form-control controls" rows="6" col="3" type="text" name="Highlight[description]" id="description" placeholder="Enter a description here " required> </textarea>
+                </div>
+                
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Create Highlight</button>
+                </div>
+                    
+            </form>
+            
+            <a href="/highlights">Go Back</a>
+        </div>
+    </div>
+<% include ../partials/footer %>
