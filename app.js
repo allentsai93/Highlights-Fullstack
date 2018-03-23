@@ -20,9 +20,10 @@ var commentRoutes = require("./routes/comments"),
     highlightRoutes = require("./routes/highlights"),
     indexRoutes = require("./routes/index");
 
-//CONFIG -- changed db to _2 for dynamic pricing
-//mongoose.connect("mongodb://localhost/highlights");
-mongoose.connect("mongodb://allen2:allen2@ds261247.mlab.com:61247/highlights");
+//CONFIG -- db 
+mongoose.connect(process.env.DATABASEURL);
+//mongoose.connect("mongodb://allen2:allen2@ds261247.mlab.com:61247/highlights");
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
