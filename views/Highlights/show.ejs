@@ -14,7 +14,7 @@
                     <img class="img-responsive" src="<%= Highlight.image %>">
                     <div class="caption-full">
                         <h4><a><%= Highlight.name %></a></h4>
-                        <p><em>Hosted by <a href="/users/<%= Highlight.author.id %>"><%= Highlight.author.username %></a>, <%= moment(Highlight.createdAt).fromNow() %></em></p>
+                        <p><em>Posted by <a href="/users/<%= Highlight.author.id %>"><%= Highlight.author.username %></a>, <%= moment(Highlight.createdAt).fromNow() %></em></p>
                         <p><%= Highlight.description %></p>
                         <% if(currentUser && Highlight.author.id.equals(currentUser._id || currentUser && currentUser.isAdmin)) { %>
                             <a class="btn btn-xs btn-warning" href="/highlights/<%= Highlight._id %>/edit">Edit</a>

@@ -26,8 +26,11 @@
             <% Highlights.forEach(function(Highlight) { %>
                 <div class="col-md-3 col-sm-6">
                     <div class="thumbnail">
+                        <a href="/highlights/<%= Highlight._id %>">
                         <img src="<%= Highlight.image %>">
+                        </a>
                         <div class="caption">
+                            
                             <h4><%=Highlight.name%></h4>
                         </div>
                         <p>
