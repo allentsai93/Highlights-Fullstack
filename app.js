@@ -21,8 +21,8 @@ var commentRoutes = require("./routes/comments"),
     indexRoutes = require("./routes/index");
 
 //CONFIG -- db 
-mongoose.connect(process.env.DATABASEURL);
-//mongoose.connect("mongodb://allen2:allen2@ds261247.mlab.com:61247/highlights");
+var url = process.env.DATABASEURL || "mongodb://localhost/highlights"
+mongoose.connect(url);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
