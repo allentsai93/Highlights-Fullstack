@@ -11,7 +11,10 @@
         <!--    </div>-->
             <div class="col-md-12">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="<%= Highlight.image %>">
+                    <!--<img class="img-responsive" src="">-->
+                    <div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="<%= Highlight.video %>"></iframe>
+</div>
                     <div class="caption-full">
                         <h4><a><%= Highlight.name %></a></h4>
                         <p><em>Posted by <a href="/users/<%= Highlight.author.id %>"><%= Highlight.author.username %></a>, <%= moment(Highlight.createdAt).fromNow() %></em></p>

@@ -13,13 +13,14 @@ var storage = multer.diskStorage({
 
 var imageFilter = function (req, file, cb) {
     // accept image files only
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|mp4)$/i)) {
         return cb(new Error('Only image files are allowed!'), false);
     }
     cb(null, true);
 };
 
-var upload = multer({ storage: storage, fileFilter: imageFilter});
+// var upload = multer({ storage: storage, fileFilter: imageFilter});
+var upload = multer({ storage: storage });
 
 var cloudinary = require('cloudinary');
 cloudinary.config({ 
@@ -60,22 +61,47 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
    res.render("Highlights/new", {page: 'newCamp'}); 
 });
 
+// // CREATE route - add new Highlight to DB
+// router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res){
+//       cloudinary.uploader.upload(req.file.path, function(result) {
+//         req.body.Highlight.image = result.secure_url;
+//         req.body.Highlight.author = {
+//             id: req.user._id,
+//             username: req.user.username
+//         }      
+//       Highlight.create(req.body.Highlight, function(err, Highlight) {
+//         if (err) {
+//           req.flash('error', err.message);
+//           return res.redirect('back');
+//         }
+//         res.redirect('/highlights/' + Highlight.id);
+//         console.log(req.body.Highlight)
+//       });
+//     });
+// });
+
 // CREATE route - add new Highlight to DB
-router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res){
-      cloudinary.uploader.upload(req.file.path, function(result) {
-        req.body.Highlight.image = result.secure_url;
+router.post("/", middleware.isLoggedIn, upload.single('video'), function(req, res){
+      cloudinary.v2.uploader.upload_large(req.file.path, {resource_type: "video"}, function(err, result) {
+         if(err){
+             console.log(err)
+         }
+        var image = cloudinary.url(result.public_id, {format: "gif", resource_type: "video", video_sampling: "40", delay: "200", effect: "loop", crop: "scale"});
+        req.body.Highlight.image = image;
+        var still = cloudinary.url(result.public_id, {format: "jpg", resource_type: "video"});
+        req.body.Highlight.still = still;
+        req.body.Highlight.video = result.secure_url;
         req.body.Highlight.author = {
             id: req.user._id,
-            username: req.user.username
-        }      
-      Highlight.create(req.body.Highlight, function(err, Highlight) {
-        if (err) {
-          req.flash('error', err.message);
-          return res.redirect('back');
+             username: req.user.username
         }
-        res.redirect('/highlights/' + Highlight.id);
-        console.log(req.body.Highlight)
-      });
+       Highlight.create(req.body.Highlight, function(err, Highlight) {
+         if (err) {
+           req.flash('error', err.message);
+           return res.redirect('back');
+         }
+         res.redirect('/highlights/' + Highlight.id);
+       });
     });
 });
 

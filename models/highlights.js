@@ -12,6 +12,18 @@ var HighlightSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    
+    //Image For Highlight
+    still: {
+        type: String,
+        required: true,
+    },
+    
+    //Video For Highlight
+    video: {
+        type: String,
+        required: true,
+    },
 
     //highlights Description
     description: {
